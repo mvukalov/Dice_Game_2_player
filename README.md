@@ -8,7 +8,7 @@ This project was created as a practice project to improve understanding of core 
 
 ## 🚀 Live Demo
 
-👉 https://api-rest-countries-mvukalov.netlify.app/
+👉 https://dice-game-2player-mv.netlify.app/
 
 ---
 
