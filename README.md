@@ -120,7 +120,7 @@ Dice-Game/
 ## 👤 Author
 
 Martin Vukalović
-GitHub: https://github.com/mvukalov
+
 
 ---
 
