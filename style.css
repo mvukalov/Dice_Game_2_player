@@ -1,0 +1,407 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  height: 100vh;
+  color: #e2e8f0;
+  background: linear-gradient(145deg, #1e1e2e 0%, #252536 50%, #1a1a28 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LAYOUT */
+main {
+  position: relative;
+  width: 100rem;
+  height: 60rem;
+  background-color: #2d2d3f;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  border: 1px solid #3d3d52;
+}
+
+.player {
+  flex: 50%;
+  padding: 9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.75s;
+}
+
+/* ELEMENTS */
+.name {
+  position: relative;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  color: #94a3b8;
+}
+
+.score {
+  font-size: 8rem;
+  font-weight: 300;
+  color: #67e8f9;
+  margin-bottom: auto;
+  font-family: "JetBrains Mono", monospace;
+  text-shadow: 0 0 2rem rgba(34, 211, 238, 0.4);
+}
+
+.player--active {
+  background-color: #252536;
+}
+/* Player 1 active = linija lijevo */
+.player--0.player--active {
+  border-left: 3px solid #22d3ee;
+  border-right: none;
+}
+/* Player 2 active = linija desno */
+.player--1.player--active {
+  border-right: 3px solid #22d3ee;
+  border-left: none;
+}
+.player--active .name {
+  font-weight: 700;
+  color: #e2e8f0;
+}
+.player--active .score {
+  font-weight: 600;
+  color: #a5f3fc;
+  text-shadow: 0 0 2.5rem rgba(165, 243, 252, 0.5);
+}
+
+.player--active .current {
+  opacity: 1;
+}
+
+.current {
+  background: linear-gradient(145deg, #0e7490 0%, #06b6d4 50%, #22d3ee 100%);
+  opacity: 0.98;
+  border-radius: 8px;
+  color: #fff;
+  width: 65%;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.75s;
+  box-shadow: 0 0.25rem 1rem rgba(6, 182, 212, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(165, 243, 252, 0.5);
+}
+
+.current-label {
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-size: 1.7rem;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1px;
+}
+
+.current-score {
+  font-size: 3.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  color: #ecfeff;
+  text-shadow: 0 0 1rem rgba(236, 254, 255, 0.8);
+}
+
+/* ABSOLUTE POSITIONED ELEMENTS */
+.btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #e2e8f0;
+  background: #3d3d52;
+  border: 1px solid #4d4d65;
+  font-family: inherit;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 400;
+  transition: all 0.2s;
+
+  padding: 0.7rem 2.5rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover {
+  background: #4d4d65;
+  border-color: #22d3ee;
+  color: #67e8f9;
+}
+
+.btn::first-letter {
+  font-size: 2.4rem;
+  display: inline-block;
+  margin-right: 0.7rem;
+}
+
+.btn--new {
+  top: 4rem;
+}
+.btn--roll {
+  top: 39.3rem;
+}
+.btn--hold {
+  top: 46.1rem;
+}
+
+.btn:active {
+  transform: translate(-50%, 2px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.btn:focus {
+  outline: none;
+  border-color: #22d3ee;
+}
+
+.dice {
+  position: absolute;
+  left: 50%;
+  top: 16.5rem;
+  transform: translateX(-50%);
+  height: 10rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4), 0 0 2rem rgba(34, 211, 238, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgba(34, 211, 238, 0.4);
+}
+
+.player--winner {
+  background: linear-gradient(145deg, #1e2a3e, #252536);
+}
+.player--0.player--winner {
+  border-left: 3px solid #22c55e;
+  border-right: none;
+}
+.player--1.player--winner {
+  border-right: 3px solid #22c55e;
+  border-left: none;
+}
+
+.player--winner .name {
+  font-weight: 700;
+  color: #22c55e;
+}
+
+/* RULES */
+.rules-wrap {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+}
+
+.btn--rules {
+  position: static;
+  transform: none;
+  left: auto;
+  font-size: 1.4rem;
+  padding: 0.5rem 1.2rem;
+}
+
+.rules {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 0.5rem;
+  width: 28rem;
+  max-width: 90vw;
+  padding: 1.2rem 1.5rem;
+  background: #252536;
+  border: 1px solid #3d3d52;
+  border-radius: 8px;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.4);
+  color: #e2e8f0;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  list-style: none;
+}
+
+.rules ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rules li {
+  margin-bottom: 0.6rem;
+  padding-left: 0;
+}
+
+.rules li:last-child {
+  margin-bottom: 0;
+}
+
+.rules strong {
+  color: #67e8f9;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ========== RESPONSIVE - MOBILE ========== */
+@media (max-width: 900px) {
+  html {
+    font-size: 50%;
+  }
+
+  body {
+    padding: 1rem;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+
+  main {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 95vh;
+    margin: 0;
+    border-radius: 8px;
+  }
+
+  .player {
+    padding: 3rem 1.5rem;
+  }
+
+  .name {
+    font-size: 2.4rem;
+  }
+
+  .score {
+    font-size: 4.5rem;
+  }
+
+  .current {
+    width: 90%;
+    padding: 1.2rem;
+  }
+
+  .current-label {
+    font-size: 1.2rem;
+  }
+
+  .current-score {
+    font-size: 2.2rem;
+  }
+
+  .dice {
+    height: 6rem;
+    top: 28%;
+  }
+
+  .btn {
+    font-size: 1.4rem;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .btn::first-letter {
+    font-size: 1.8rem;
+  }
+
+  .btn--new {
+    top: 1.5rem;
+  }
+
+  .btn--roll {
+    top: 65%;
+  }
+
+  .btn--hold {
+    top: 72%;
+  }
+
+  .rules-wrap {
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .rules {
+    width: 26rem;
+    padding: 1rem 1.2rem;
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 45%;
+  }
+
+  .player {
+    padding: 2rem 1rem;
+  }
+
+  .name {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .score {
+    font-size: 3.5rem;
+  }
+
+  .current {
+    padding: 1rem;
+  }
+
+  .current-score {
+    font-size: 1.8rem;
+  }
+
+  .dice {
+    height: 5rem;
+  }
+
+  .btn {
+    font-size: 1.2rem;
+    padding: 0.5rem 1.2rem;
+  }
+
+  .btn--new {
+    top: 1rem;
+  }
+
+  .btn--roll {
+    top: 62%;
+  }
+
+  .btn--hold {
+    top: 69%;
+  }
+
+  .rules-wrap {
+    bottom: 0.8rem;
+    left: 0.8rem;
+  }
+
+  .rules {
+    width: 22rem;
+    padding: 0.9rem 1rem;
+    font-size: 1.05rem;
+  }
+
+  .btn--rules {
+    font-size: 1.1rem;
+    padding: 0.4rem 1rem;
+  }
+}
